@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chatbot AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div id="chatContainer" class="chat-container {% if conversation|length > 0 %}active{% else %}inactive{% endif %}">
+    <div class="chat-title">AI Chatbot</div>
+    <div class="middle-text">How can I help you today?</div>
+    <div class="chat-window">
+      {% for msg in conversation %}
+        <div class="message {{ msg.sender }}">
+          {% if msg.sender == 'bot' %}
+            <div class="circle"></div>
+            <div class="bubble">{{ msg.text }}</div>
+          {% else %}
+            <div class="bubble">{{ msg.text }}</div>
+            <div class="circle"></div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="input-container">
+      <form id="chatForm" method="post" action="/" class="input-form">
+        <input type="text" name="user_input" class="input-field" placeholder="Type your message..." required />
+        <button class="send-btn" type="submit"></button>
+      </form>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
